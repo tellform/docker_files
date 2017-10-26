@@ -1,7 +1,7 @@
 version: "3"
 services:
   tellform:
-    image: tellform
+    image: tellform/app:stable
     ports:
       - 5000:5000
       - 587:587
@@ -21,9 +21,7 @@ services:
     ports:
       - "6379:6379"
   web:
-    build: 
-      context: ./nginx
-      dockerfile: Dockerfile-prod
+    image: tellform/nginx:prod
     restart: always
     ports:
       - "80:80"
