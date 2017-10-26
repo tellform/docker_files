@@ -1,0 +1,42 @@
+version: "3"
+services:
+  tellform:
+    image: tellform
+    ports:
+      - 5000:5000
+      - 587:587
+    env_file:
+      - .env
+    links:
+      - mongo
+      - redis
+    depends_on:
+      - mongo
+      - redis
+  redis:
+    restart: always
+    image: redis
+    volumes:
+      - "/opt/tellform_data/redis:/data"
+    ports:
+      - "6379:6379"
+  web:
+    build: 
+      context: ./nginx
+      dockerfile: Dockerfile-prod
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+      - "20523:20523"
+    env_file:
+      - .env
+    volumes: 
+      - "/opt/tellform_data/certs"
+  mongo:
+    restart: always
+    image: mongo
+    volumes: 
+      - "/opt/tellform_data/mongo:/data"
+    ports:
+      - "127.0.0.1:27107:27107"
