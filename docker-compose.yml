@@ -3,7 +3,7 @@ services:
   tellform:
     image: tellform/app:stable
     ports:
-      - 5000:5000
+      - "5000"
       - 587:587
     env_file:
       - .env
@@ -17,11 +17,11 @@ services:
     restart: always
     image: redis
     volumes:
-      - "/opt/tellform_data/redis:/data"
+      - "$ROOT/redis:/data"
     ports:
       - "6379:6379"
   web:
-    image: tellform/nginx:prod
+    image: tellform/nginx:stable
     restart: always
     ports:
       - "80:80"
@@ -30,11 +30,11 @@ services:
     env_file:
       - .env
     volumes: 
-      - "/opt/tellform_data/certs"
+      - "$ROOT/certs:/certs"
   mongo:
     restart: always
     image: mongo
     volumes: 
-      - "/opt/tellform_data/mongo:/data"
+      - "$ROOT/mongo:/data"
     ports:
-      - "127.0.0.1:27107:27107"
+      - "27107:27107"
