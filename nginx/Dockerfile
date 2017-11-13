@@ -1,5 +1,4 @@
 FROM alpine:edge
-
 RUN apk add --no-cache nginx certbot openssl python py-jinja2
 
 COPY conf /conf
