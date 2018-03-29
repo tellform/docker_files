@@ -7,6 +7,8 @@ services:
       - 587:587
     env_file:
       - .env
+    volumes:
+      - "${PWD}/.env:/opt/tellform/.env"
     links:
       - mongo
       - redis
