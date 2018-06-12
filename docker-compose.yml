@@ -19,7 +19,7 @@ services:
     restart: always
     image: redis
     volumes:
-      - "$ROOT/redis:/data"
+      - "${PWD}/.env:/opt/tellform/.env"
     ports:
       - "6379:6379"
   web:
