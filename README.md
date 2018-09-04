@@ -17,3 +17,5 @@ Create your `.env` file by copying the `.env.dist` file included in the repo and
 ### Step 3: Start your TellForm instance
 
 ```docker-compose up -d```
+
+TellForm is now accessible on https://localhost
