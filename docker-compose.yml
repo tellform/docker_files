@@ -1,10 +1,17 @@
 version: "3"
 services:
+  redis:
+    restart: always
+    image: redis
+    volumes:
+      - "${PWD}/.env:/opt/tellform/.env"
+  mongo:
+    restart: always
+    image: mongo
+    volumes: 
+      - "$ROOT/mongo:/data"
   tellform:
     image: tellform/app:stable
-    ports:
-      - "5000"
-      - 587:587
     env_file:
       - .env
     volumes:
@@ -15,13 +22,6 @@ services:
     depends_on:
       - mongo
       - redis
-  redis:
-    restart: always
-    image: redis
-    volumes:
-      - "${PWD}/.env:/opt/tellform/.env"
-    ports:
-      - "6379:6379"
   web:
     image: tellform/nginx:stable
     restart: always
@@ -33,10 +33,3 @@ services:
       - .env
     volumes: 
       - "$ROOT/certs:/certs"
-  mongo:
-    restart: always
-    image: mongo
-    volumes: 
-      - "$ROOT/mongo:/data"
-    ports:
-      - "27107:27107"
